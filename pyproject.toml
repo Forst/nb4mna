@@ -1,0 +1,57 @@
+[build-system]
+requires = ['poetry-core>=1.0.0']
+build-backend = 'poetry.core.masonry.api'
+
+[tool.poetry]
+name = 'nb4mna'
+version = '0.1.0'
+description = 'Custom Nightbot APIs for MedicNinjaa'
+authors = ['Foster Snowhill <Forst@users.noreply.github.com>']
+license = 'MIT'
+repository = 'https://github.com/Forst/nb4mna'
+
+[tool.poetry.dependencies]
+python = '^3.8'
+fastapi = '^0.70.1'
+httpx = {extras = ['http2'], version = '^0.21.1'}
+uvicorn = {extras = ['standard'], version = '^0.16.0'}
+python-dotenv = '^0.19.2'
+asgi-correlation-id = '^1.1.2'
+PyYAML = '^6.0'
+
+[tool.poetry.dev-dependencies]
+flake8 = '^4.0.1'
+pyproject-flake8 = '^0.0.1-alpha.2'
+black = '^21.12b0'
+nox = '^2021.10.1'
+nox-poetry = '^0.9.0'
+flake8-black = '^0.2.3'
+flake8-import-order = '^0.18.1'
+flake8-bugbear = '^21.11.29'
+flake8-bandit = '^2.1.2'
+safety = '^1.10.3'
+mypy = '^0.930'
+types-PyYAML = '^6.0.1'
+
+[tool.black]
+line-length = 120
+target-version = ['py38', 'py39', 'py310']
+skip-string-normalization = true
+
+[tool.flake8]
+count = 'yes'
+statistics = 'yes'
+max-line-length = 120
+import-order-style = 'google'
+#select = 'BLK,B,B9,C,E,F,W,I,S'
+select = 'B,B9,C,E,F,W,I,S'
+# Ignores:
+# * B950 - using strict line length limitation
+# * S311 - project doesn't do any cryptography to require secure randomness
+ignore = 'B950,S311'
+# Per-file ignores:
+# * src/nb4mna/__init__.py: imports logging first to catch all log messages
+per-file-ignores = 'src/nb4mna/__init__.py:E402,I100'
+
+[tool.mypy]
+strict = true
