@@ -11,6 +11,10 @@ services:
         - "traefik.http.routers.nb4mna.tls=true"
         - "traefik.http.routers.nb4mna.rule=Host(`nb4mna.pen.gy`)"
         - "traefik.http.routers.nb4mna.tls.certresolver=letsencrypt"
+        - "traefik.http.routers.nb4mna.middlewares=nb4mnasts"
+        - "traefik.http.middlewares.nb4mnasts.headers.stsincludesubdomains=false"
+        - "traefik.http.middlewares.nb4mnasts.headers.stsseconds=31536000"
+        - "traefik.http.middlewares.nb4mnasts.headers.isdevelopment=false"
       replicas: 1
       restart_policy:
         condition: any
