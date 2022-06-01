@@ -13,7 +13,7 @@ repository = 'https://github.com/Forst/nb4mna'
 [tool.poetry.dependencies]
 python = '^3.8'
 fastapi = '^0.70.1'
-httpx = {extras = ['http2'], version = '^0.21.1'}
+httpx = {extras = ['http2'], version = '^0.23.0'}
 uvicorn = {extras = ['standard'], version = '^0.16.0'}
 python-dotenv = '^0.19.2'
 asgi-correlation-id = '^1.1.2'
