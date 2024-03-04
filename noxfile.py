@@ -10,9 +10,9 @@ import nox_poetry
 
 
 # Default list of files to check
-locations = ['src', 'noxfile.py']
+locations = ['src', './noxfile.py']
 # List of supported Python versions (ordered newest to oldest)
-supported_python_versions = ['3.10', '3.9', '3.8']
+supported_python_versions = ['3.12', '3.11', '3.10', '3.9', '3.8']
 
 nox.options.sessions = ('flake8', 'mypy', 'safety')
 
@@ -27,7 +27,7 @@ def requirements(session: nox.Session) -> Iterator[TemporaryFileProtocol]:
         session.run(
             'poetry',
             'export',
-            '--dev',
+            '--with=dev',
             '--format=requirements.txt',
             '--without-hashes',
             f'--output={requirements_file.name}',
@@ -54,9 +54,9 @@ def flake8(session: nox.Session) -> None:
         # 'flake8-black',
         'flake8-bugbear',
         'flake8-import-order',
-        'pyproject-flake8',
+        'flake8-pyproject',
     )
-    session.run('pflake8', *args)
+    session.run('flake8', *args)
 
 
 @nox_poetry.session(python=supported_python_versions)

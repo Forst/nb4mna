@@ -1,4 +1,4 @@
-FROM python:3.10.1-slim
+FROM python:3.12.2-slim
 
 COPY . /usr/src/app/
 RUN pip install --no-cache-dir /usr/src/app
