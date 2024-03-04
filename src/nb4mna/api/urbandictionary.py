@@ -20,15 +20,7 @@ class AutocompletionList(BaseModel):
 class TermDefinition(BaseModel):
     definition: str
     permalink: HttpUrl
-    thumbs_up: int
-    sound_urls: List[HttpUrl]
-    author: str
     word: str
-    defid: int
-    current_vote: str
-    written_on: str
-    example: str
-    thumbs_down: int
 
 
 class TermDefinitions(BaseModel):
