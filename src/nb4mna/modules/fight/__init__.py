@@ -7,7 +7,7 @@ import re
 from typing import List
 
 from fastapi import APIRouter, FastAPI, Request
-from fastapi.responses import PlainTextResponse
+from fastapi.responses import PlainTextResponse, Response
 from pydantic import BaseModel
 import yaml
 
@@ -164,7 +164,7 @@ async def fight(message: str, nightbot: NightbotData = NightbotDepends) -> Plain
     )
 
 
-def _api_exception_handler(request: Request, exc: TatsumakiAPIException) -> PlainTextResponse:
+def _api_exception_handler(request: Request, exc: Exception) -> Response:
     return PlainTextResponse(f'Tatsumaki API error: {exc}')
 
 

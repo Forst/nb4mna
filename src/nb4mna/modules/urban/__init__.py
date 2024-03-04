@@ -2,7 +2,7 @@ import logging
 import re
 
 from fastapi import APIRouter, FastAPI, Request
-from fastapi.responses import PlainTextResponse
+from fastapi.responses import PlainTextResponse, Response
 
 from ...api.nightbot import MAX_MESSAGE_LENGTH
 from ...api.urbandictionary import TermDefinition, UrbanDictionaryAPI, UrbanDictionaryAPIException
@@ -57,7 +57,7 @@ async def urban(term: str) -> PlainTextResponse:
     return PlainTextResponse(f'{word_f}{definition}{url_f}')
 
 
-def _api_exception_handler(request: Request, exc: UrbanDictionaryAPIException) -> PlainTextResponse:
+def _api_exception_handler(request: Request, exc: Exception) -> Response:
     return PlainTextResponse(f'Urban Dictionary API error: {exc}')
 
 
