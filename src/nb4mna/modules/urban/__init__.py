@@ -22,7 +22,7 @@ async def urban(term: str) -> PlainTextResponse:
 
     autocomplete = await _urbandictionary.get_autocomplete(term)
     if not autocomplete.list:
-        return PlainTextResponse(f'No definitions found for "{term}"')
+        return PlainTextResponse(f'No definitions found for {term!r}')
     _logger.debug(f'Autocomplete: {autocomplete.list}')
 
     # Urban Dictionary's API is a hot mess
@@ -35,11 +35,11 @@ async def urban(term: str) -> PlainTextResponse:
         term_autocompleted = autocomplete.list[0]
 
     if term != term_autocompleted:
-        _logger.debug(f"Autocompleted term '{term}' to '{term_autocompleted}'")
+        _logger.debug(f"Autocompleted term {term!r} to {term_autocompleted!r}")
 
     terms = await _urbandictionary.get_term(term_autocompleted)
     if not terms.list:
-        return PlainTextResponse(f'No definitions found for "{term}" (API bug?)')
+        return PlainTextResponse(f'No definitions found for {term!r} (API bug?)')
 
     term_definition: TermDefinition = terms.list[0]
 
