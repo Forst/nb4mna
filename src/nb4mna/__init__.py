@@ -4,6 +4,8 @@ __version__ = '0.1.0'
 from .logging import configure_logging
 configure_logging()
 
+from typing import Dict
+
 from asgi_correlation_id import CorrelationIdMiddleware
 from fastapi import FastAPI
 
@@ -22,7 +24,7 @@ app.add_middleware(CorrelationIdMiddleware)
 
 
 @app.get('/healthcheck/')
-def healthcheck():
+def healthcheck() -> Dict[str, str]:
     return {'status': 'ok'}
 
 
