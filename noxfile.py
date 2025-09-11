@@ -21,26 +21,12 @@ class TemporaryFileProtocol(Protocol):
     name: str
 
 
-@contextmanager
-def requirements(session: nox.Session) -> Iterator[TemporaryFileProtocol]:
-    with tempfile.NamedTemporaryFile() as requirements_file:
-        session.run(
-            'poetry',
-            'export',
-            '--with=dev',
-            '--format=requirements.txt',
-            '--without-hashes',
-            f'--output={requirements_file.name}',
-            external=True,
-        )
-        yield requirements_file
-
-
 @nox_poetry.session(python=supported_python_versions[0])
 def black(session: nox.Session) -> None:
     args = session.posargs or locations
     session.install('black')
     # TODO When 'black' addresses the '# endregion' line spacing, make this command actually clean up code
+    # https://github.com/psf/black/issues/3566
     session.run('black', '--check', '--diff', '--color', *args)
 
 
