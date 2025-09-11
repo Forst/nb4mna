@@ -1,6 +1,6 @@
 services:
   nb4mna:
-    image: nb4mna:0.1.0
+    image: nb4mna:0.1.1
     build: .
     env_file: .env
     restart: unless-stopped

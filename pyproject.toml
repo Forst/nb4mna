@@ -4,7 +4,7 @@ build-backend = 'poetry.core.masonry.api'
 
 [tool.poetry]
 name = 'nb4mna'
-version = '0.1.0'
+version = '0.1.1'
 description = 'Custom Nightbot APIs for MedicNinjaa'
 authors = ['Foster Snowhill <Forst@users.noreply.github.com>']
 license = 'MIT'
