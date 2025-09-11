@@ -2,6 +2,7 @@ __version__ = '0.1.0'
 
 
 from .logging import configure_logging
+
 configure_logging()
 
 from typing import Dict

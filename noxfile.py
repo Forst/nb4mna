@@ -1,9 +1,7 @@
 # Based on 'Hypermodern Python' article series by Claudio Jolowicz
 # https://cjolowicz.github.io/posts/hypermodern-python-03-linting/
 
-from contextlib import contextmanager
-import tempfile
-from typing import Iterator, Protocol
+from typing import Protocol
 
 import nox
 import nox_poetry
@@ -12,7 +10,7 @@ import nox_poetry
 # Default list of files to check
 locations = ['src', './noxfile.py']
 # List of supported Python versions (ordered newest to oldest)
-supported_python_versions = ['3.12', '3.11', '3.10', '3.9', '3.8']
+supported_python_versions = ['3.13', '3.12']
 
 nox.options.sessions = ('flake8', 'mypy', 'safety')
 
@@ -61,5 +59,4 @@ def mypy(session: nox.Session) -> None:
 @nox_poetry.session(python=supported_python_versions[0])
 def safety(session: nox.Session) -> None:
     session.install('safety')
-    with requirements(session) as requirements_file:  # type: TemporaryFileProtocol
-        session.run('safety', 'check', f'--file={requirements_file.name}', '--full-report')
+    session.run('safety', 'scan', '--detailed-output')

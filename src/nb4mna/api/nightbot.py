@@ -1,4 +1,5 @@
 import logging
+from typing import Type, TypeVar
 from urllib.parse import parse_qs
 
 from fastapi import Depends, Header
@@ -12,14 +13,16 @@ _logger = logging.getLogger('nb4mna.api.nightbot')
 
 
 # region Data models
-class URLEncodedModel(BaseModel):
-    def __init__(self, url_encoded: str) -> None:
-        qs = parse_qs(url_encoded, keep_blank_values=True, strict_parsing=True)
-        data = {key: value[0] for key, value in qs.items()}
-        super().__init__(**data)
+ModelT = TypeVar('ModelT')
 
 
-class NightbotUser(URLEncodedModel):
+def url_decode(model: Type[ModelT], url_encoded: str) -> ModelT:
+    qs = parse_qs(url_encoded, keep_blank_values=True, strict_parsing=True)
+    data = {key: value[0] for key, value in qs.items()}
+    return model(**data)
+
+
+class NightbotUser(BaseModel):
     name: str
     displayName: str
     provider: str
@@ -27,7 +30,7 @@ class NightbotUser(URLEncodedModel):
     userLevel: str
 
 
-class NightbotChannel(URLEncodedModel):
+class NightbotChannel(BaseModel):
     name: str
     displayName: str
     provider: str
@@ -51,8 +54,8 @@ def _dependency(
 
     return NightbotData(
         response_url=nightbot_response_url,
-        user=NightbotUser(nightbot_user),
-        channel=NightbotChannel(nightbot_channel),
+        user=url_decode(NightbotUser, nightbot_user),
+        channel=url_decode(NightbotChannel, nightbot_channel),
     )
 
 
