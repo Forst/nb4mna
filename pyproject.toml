@@ -12,26 +12,26 @@ repository = 'https://github.com/Forst/nb4mna'
 
 [tool.poetry.dependencies]
 python = '^3.12'
-fastapi = "^0.120.2"
+fastapi = "^0.135.1"
 httpx = {extras = ["http2"], version = "^0.28.1"}
-uvicorn = "^0.38.0"
-python-dotenv = "^1.2.1"
+uvicorn = "^0.42.0"
+python-dotenv = "^1.2.2"
 asgi-correlation-id = "^4.3.4"
 PyYAML = "^6.0.3"
-pydantic-settings = "^2.11.0"
+pydantic-settings = "^2.13.1"
 
 [tool.poetry.group.dev.dependencies]
 flake8 = "^7.3.0"
-flake8-pyproject = "^1.2.3"
-black = "^25.9.0"
-nox = "^2025.10.16"
+flake8-pyproject = "^1.2.4"
+black = "^26.3.1"
+nox = "^2026.2.9"
 nox-poetry = "^1.2.0"
 flake8-black = "^0.4.0"
 flake8-import-order = "^0.19.2"
-flake8-bugbear = "^25.10.21"
+flake8-bugbear = "^25.11.29"
 flake8-bandit = "^4.1.1"
-safety = "^3.6.2"
-mypy = "^1.18.2"
+safety = "^3.7.0"
+mypy = "^1.19.1"
 types-pyyaml = "^6.0.12.20250915"
 
 [tool.black]
