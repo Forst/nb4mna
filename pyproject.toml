@@ -34,6 +34,9 @@ safety = "^3.7.0"
 mypy = "^1.19.1"
 types-pyyaml = "^6.0.12.20250915"
 
+[tool.poetry.requires-plugins]
+poetry-plugin-export = ">=1.8"
+
 [tool.black]
 line-length = 120
 target-version = ['py38', 'py39', 'py310', 'py311', 'py312']
