@@ -1,0 +1,11 @@
+[Unit]
+Description=nb4mna (socket)
+
+[Socket]
+ListenStream=/opt/pod/nb4mna.sock
+SocketUser=pod
+SocketGroup=www-data
+SocketMode=0660
+
+[Install]
+WantedBy=sockets.target

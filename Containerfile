@@ -5,6 +5,4 @@ WORKDIR /usr/src/app/
 RUN pip install --no-cache-dir poetry && \
     poetry install
 
-CMD ["poetry", "run", "python", "-m", "uvicorn", "--host", "0.0.0.0", "--no-server-header", "nb4mna:app"]
-
-EXPOSE 8000/tcp
+CMD ["poetry", "run", "python", "-m", "uvicorn", "--fd", "3", "--no-server-header", "nb4mna:app"]

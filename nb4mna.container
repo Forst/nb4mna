@@ -1,0 +1,10 @@
+[Unit]
+Description=nb4mna
+Requires=nb4mna.socket
+After=nb4mna.socket
+
+[Container]
+Image=localhost/nb4mna:latest
+
+[Install]
+WantedBy=default.target
