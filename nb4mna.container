@@ -5,6 +5,7 @@ After=nb4mna.socket
 
 [Container]
 Image=localhost/nb4mna:latest
+EnvironmentFile=%h/container_env/nb4mna.env
 
 [Install]
 WantedBy=default.target
