@@ -10,7 +10,7 @@ import nox_poetry
 # Default list of files to check
 locations = ['src', './noxfile.py']
 # List of supported Python versions (ordered newest to oldest)
-supported_python_versions = ['3.13', '3.12']
+supported_python_versions = ['3.15', '3.14', '3.13', '3.12', '3.11']
 
 nox.options.sessions = ('flake8', 'mypy', 'safety')
 
