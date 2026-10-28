@@ -29,7 +29,8 @@ class AsyncCachedHTTPTransport(AsyncHTTPTransport):
         self.cache_duration = cache_duration
         self.cache_write_lock = asyncio.Lock()
 
-        self.cache_clear_task = asyncio.create_task(self.clear_cache_task())
+        self.cache_clear_task_lock = asyncio.Lock()
+        self.cache_clear_task: asyncio.Task | None = None
 
     @staticmethod
     def get_cache_key(request: Request) -> CacheKey:
@@ -39,7 +40,7 @@ class AsyncCachedHTTPTransport(AsyncHTTPTransport):
     def is_request_response_cacheable(request: Request, response: Response) -> bool:
         return request.method == 'GET' and response.status_code < 500
 
-    async def clear_cache_task(self) -> None:
+    async def clear_cache_task_handler(self) -> None:
         self._logger.debug(f'Started periodic cache clearing task (every {self.cache_duration:.0f} seconds)')
 
         while True:
@@ -53,6 +54,10 @@ class AsyncCachedHTTPTransport(AsyncHTTPTransport):
             await asyncio.sleep(self.cache_duration)
 
     async def handle_async_request(self, request: Request) -> Response:
+        async with self.cache_clear_task_lock:
+            if not self.cache_clear_task or self.cache_clear_task.done():
+                self.cache_clear_task = asyncio.create_task(self.clear_cache_task_handler())
+
         cache_key = self.get_cache_key(request)
         cache_value = self.cache.get(cache_key, None)
 
